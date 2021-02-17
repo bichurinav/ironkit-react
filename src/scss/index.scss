@@ -21,3 +21,13 @@ body {
   font-weight: 400;
   font-size: 1.6rem;
 }
+
+.container {
+  max-width: $container-width;
+  padding: 0 10px;
+  height: 100%;
+  margin: 0 auto;
+  @media (max-width: $container-width) {
+    width: 100%;
+  }
+}

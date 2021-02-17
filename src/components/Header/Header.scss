@@ -1,0 +1,17 @@
+@import 'src/scss/vars.scss';
+
+.header {
+    background: #fff;
+    box-shadow: 0 0 5px 0 silver;
+    height: $header-height;
+    
+    &__inner {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    &__acc {
+        margin-left: auto;
+    }
+}
