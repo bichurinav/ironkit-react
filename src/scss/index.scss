@@ -1,0 +1,23 @@
+@import 'src/fonts/fonts.scss';
+@import 'src/scss/vars.scss';
+@import 'src/scss/theme.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Ubuntu';
+  font-weight: 400;
+  font-size: 1.6rem;
+}
