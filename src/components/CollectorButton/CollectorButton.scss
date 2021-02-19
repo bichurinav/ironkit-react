@@ -1,0 +1,48 @@
+@import 'src/scss/theme.scss';
+
+.collector-btn {
+    display: flex;
+    align-items: center;
+    position: relative;
+    letter-spacing: 0.03em;
+
+    &__label {
+        padding-right: 25px;
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: inherit;
+        width: $button-height;
+        height: inherit;
+        background: $primary;
+        position: absolute;
+        right: -1px;
+        box-shadow: 0 0 3px $primary;
+    }
+
+    &__img {
+        width: 70%;
+        height: 70%;
+    }
+
+    &__counter {
+        position: absolute;
+        color: $primary;
+        font-size: 1.3rem;
+        font-family: 'Arial';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 5px;
+        right: 3px;
+        font-weight: 700;
+        border-radius: 8px;
+        width: 16px;
+        height: 16px;
+        box-shadow: 0 0 5px $primary;
+        background: #fff;
+    }
+}

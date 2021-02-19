@@ -8,10 +8,42 @@
     &__inner {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         height: 100%;
     }
 
-    &__acc {
-        margin-left: auto;
+    &-block {
+        display: flex;
+        align-items: center;
     }
+
+    &__btn-collector,
+    &__btn-acc {
+        margin-left: 15px;
+    }
+
+    .menu {
+
+        &__inner {
+            list-style-type: none;
+            display: flex;
+        }
+
+        &__item {
+            padding: 5px 10px;
+        }
+
+        &__link {
+            color: #333;
+            padding-bottom: 3px;
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+                color: $primary-light;
+            }
+   
+        }
+    }
+
 }

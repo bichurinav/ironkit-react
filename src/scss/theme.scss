@@ -1,1 +1,61 @@
 @import './vars.scss';
+
+.button {
+    border: none;
+    outline: none;
+    font-family: 'Ubuntu';
+    font-size: 1.6rem;
+    background: #fff;
+    height: $button-height;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: $transiton;
+}
+
+.button.primary {
+    background: $primary;
+    color: #fff;
+    border-radius: 50px;
+    position: relative;
+
+    &:hover {
+        box-shadow: inset 0 0 80px $primary-light;
+    }
+
+    &:active {
+        box-shadow: inset 0 0 80px $primary-light, 0 0 5px $primary;
+    }
+
+}
+
+.button.primary.outlined {
+    background: #fff;
+    color: $primary;
+    border: 1px solid $primary;
+
+    &:hover {
+        box-shadow: 0 0 4px $primary-light;
+    }
+}
+
+.input {
+    outline: none;
+    border: none;
+}
+
+.input.primary {
+    font-family: 'Ubuntu';
+    border: 1px solid $primary-light;
+    height: 32px;
+    border-radius: 16px;
+    padding: 0 10px;
+
+    &::placeholder {
+        color: $primary;
+        font-size: 1.5rem;
+    }
+
+    &:focus {
+        box-shadow: 0 0 3px $primary;
+    }
+}

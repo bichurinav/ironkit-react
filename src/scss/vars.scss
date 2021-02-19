@@ -1,6 +1,8 @@
 $container-width: 1170px;
 $header-height: 50px;
-
+$transiton: all .25s;
+$button-height: 33px; 
+// color
 $primary: #2196F3;
 $primary-light: #4CBBF9;
 $main-gradient: linear-gradient(180deg, rgba(0, 255, 102, 0.42) 0%, $primary 0.01%,  $primary-light 100%);
