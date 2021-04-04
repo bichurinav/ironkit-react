@@ -47,15 +47,25 @@
     font-family: 'Ubuntu';
     border: 1px solid $primary-light;
     height: 32px;
-    border-radius: 16px;
+    border-radius: 5px;
     padding: 0 10px;
 
     &::placeholder {
         color: $primary;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     &:focus {
         box-shadow: 0 0 3px $primary;
     }
+}
+
+.input.primary.outlined {
+    border-radius: 16px;
+}
+
+.close {
+    color: #FE5050;
+    font-size: 3rem;
+    cursor: pointer;
 }

@@ -1,10 +1,10 @@
-import React from 'react'
-import Logo from './../Logo/Logo'
-import IconButton from './../IconButton/IconButton'
-import CollectorButton from './../CollectorButton/CollectorButton'
-import signIn from './signIn.svg'
-import collector from './collector.svg'
-import './Header.scss'
+import React from 'react';
+import Logo from './../Logo/Logo';
+import IconButton from './../IconButton/IconButton';
+import CollectorButton from './../CollectorButton/CollectorButton';
+import signIn from './signIn.svg';
+import collector from './collector.svg';
+import './Header.scss';
 
 export default function Header() {
     return (
@@ -15,31 +15,26 @@ export default function Header() {
                     <Menu />
                 </div>
                 <div className="header-block">
-                    <CollectorButton 
-                        className="header__btn-collector" 
+                    <CollectorButton
+                        className="header__btn-collector"
                         src={collector}
-                        alt="collector" 
+                        alt="collector"
                     />
-                    <IconButton 
-                        className="header__btn-acc" 
-                        src={signIn} 
-                        alt="signIn" 
+                    <IconButton
+                        className="header__btn-acc"
+                        icon={signIn}
+                        alt="signIn"
                     />
                 </div>
             </div>
         </header>
-    )
+    );
 }
 
 function Menu() {
     return (
         <nav className="menu">
             <ul className="menu__inner">
-                <li className="menu__item">
-                    <a href="/#" className="menu__link">
-                        Сборки
-                    </a>
-                </li>
                 <li className="menu__item">
                     <a href="/#" className="menu__link">
                         Инструкция
@@ -52,5 +47,5 @@ function Menu() {
                 </li>
             </ul>
         </nav>
-    )
+    );
 }
