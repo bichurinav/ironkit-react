@@ -1,0 +1,60 @@
+@import 'src/scss/vars.scss';
+
+.catalog-menu {
+    width: 240px;
+    flex-shrink: 0;
+
+    &__inner {
+        list-style-type: none;
+    }
+
+    &__item {
+        a {
+            transition: all .1s;
+            width: 100%;
+            display: inline-block;
+            border: solid 2px transparent;
+            color: $primary;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px $primary;
+        }
+        a.active {
+            background: $primary;
+            box-shadow: 0 0px 5px $primary;
+            color: #fff;
+        }
+    }
+
+    &__form {
+
+        &-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid $primary-light;
+            border-radius: 5px;
+            padding: 3px;
+            .input {
+                width: 70%;
+            }
+        }
+
+        &-upload {
+            display: flex;
+            border-radius: 5px;
+            padding: 10px;
+            align-items: center;
+            img {
+                width: 35px;
+                height: 35px;
+                margin-right: 5px;
+            }
+            .close {
+                margin-left: auto;
+            }
+        }
+
+    }
+}
