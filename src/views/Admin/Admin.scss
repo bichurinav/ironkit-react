@@ -1,0 +1,11 @@
+.admin {
+    .form-adder  {
+        &__btn {
+            width: 100%;
+            margin: 10px 0;
+        }
+        &__upload div {
+            margin: 10px 0 0 0;
+        }
+    }
+}

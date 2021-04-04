@@ -1,0 +1,13 @@
+.temp-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    &__image {
+        margin-top: 10px;
+    }
+    &__close {
+        position: absolute;
+        right: 0;
+        font-size: 4rem !important;
+    }
+}
