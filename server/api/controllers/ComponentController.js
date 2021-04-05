@@ -25,8 +25,8 @@ class ComponentController {
 
             const db = new SQLite();
             await db.run(
-                `INSERT INTO ${component}_components (name, price, params, image) VALUES (?, ?, ?, ?)`,
-                [name, price, JSON.stringify(params), imageName]
+                `INSERT INTO ${component}_components (component, name, price, params, image) VALUES (?, ?, ?, ?, ?)`,
+                [component, name, price, JSON.stringify(params), imageName]
             );
             await db.close();
             res.status(200).send(`${name} успешно добавлен!`);
