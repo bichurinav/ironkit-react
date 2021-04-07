@@ -12,7 +12,7 @@ export default function Admin() {
 
     return (
         <div className="admin">
-            <h2>Добавление компонента</h2>
+            <h2 className="admin__title">ADMIN PANEL</h2>
             {menu.length ? <FormAdderComponent menu={menu} /> : null}
         </div>
     );
@@ -113,9 +113,11 @@ function FormAdderComponent({ menu }) {
                 <TextField key={uniqid()} name={param.name} />
             ))}
 
-            <button className="button primary form-adder__btn">
-                Добавить {current.genetive}
-            </button>
+            <div className="wrapper-btn">
+                <button className="button primary form-adder__btn">
+                    Добавить {current.genetive}
+                </button>
+            </div>
         </form>
     );
 }

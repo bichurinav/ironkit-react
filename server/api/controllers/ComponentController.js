@@ -2,6 +2,21 @@ import SQLite from '../../SQLite.js';
 import uniqid from 'uniqid';
 
 class ComponentController {
+    async getComponent(req, res) {
+        try {
+            const { component } = req.params;
+            const db = new SQLite();
+            const components = await db.all(
+                `SELECT * FROM ${component}_components`
+            );
+
+            await db.close();
+            res.status(200).json(components);
+        } catch (e) {
+            res.send(e.message);
+        }
+    }
+
     async addComponent(req, res) {
         try {
             const name = req.body['Название'];

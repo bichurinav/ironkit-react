@@ -1,7 +1,14 @@
+@import 'src/scss/vars.scss';
+
 .catalog {
     width: 100%;
     min-height: 370px;
     position: relative;
+
+    &__inner {
+        height: 100%;
+        position: relative;
+    }
 
     &__content {
         display: flex;
@@ -14,15 +21,56 @@
         border-radius: 5px;
         padding: 10px;
         box-shadow: 0 3px 5px silver;
-        min-height: 180px;
+        min-height: 150px;
         margin: 0.5rem;
-    }
+        display: flex;
+        background: #fff;
+        position: relative;
 
-    .spinner {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        &__inner {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        &__image {
+            height: 100px;
+        }
+
+        &__info {
+            margin-right: auto;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin-left: 8px;
+            height: 100%;
+        }
+        &__param {
+            margin: 3px 0;
+            color: rgb(94, 94, 94);
+        }
+        &__name {
+            font-size: 2rem;
+            margin-bottom: 3px;
+        }
+        &__price {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            color: $primary;
+            font-weight: 500;
+        }
+        &__more {
+           align-self: flex-start;
+           padding-bottom: 1px;
+           color: $primary-light;
+           border-bottom: 1px solid $primary-light;
+           &:hover {
+                color: $primary;
+                border-bottom: 1px solid $primary;
+           }
+        }
     }
 
 }

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Catalog from './views/Catalog/Catalog';
 import CatalogMenu from './components/CatalogMenu/CatalogMenu';
+import DetailCard from './views/DetailCard/DetailCard';
 import Content from './components/Content/Content';
 import Admin from './views/Admin/Admin';
 
@@ -14,8 +15,16 @@ export default function App() {
                 <CatalogMenu />
                 <Switch>
                     <Route path="/admin" children={<Admin />} />
-                    <Route path="/:component" children={<Catalog />} />
-                    <Redirect from="/" to="/cpu" />
+                    <Route
+                        exact
+                        path="/cards/:component"
+                        children={<Catalog />}
+                    />
+                    <Route
+                        path="/cards/:component/:id"
+                        children={<DetailCard />}
+                    />
+                    <Redirect from="/" to="/cards/cpu" />
                 </Switch>
             </Content>
         </div>

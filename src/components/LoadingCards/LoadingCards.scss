@@ -1,0 +1,33 @@
+.load-cards {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    &__card {
+        flex-basis: calc(100% / 2 - 1rem);
+        margin: 0.5rem;
+        height: 150px;
+        background: linear-gradient(90deg, rgb(238, 238, 238) 0%, rgb(228, 228, 228) 7%, rgb(230, 230, 230) 13%, rgb(241, 241, 241) 25%);
+        background-size: 900%;
+        background-position: 100% 0%;
+        animation: card 1.8s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes card {
+        0% {
+            background-position: 100% 0%;
+        }
+        99% {
+            background-position: -30% 0%;
+        }
+        100% {
+            background-position: 100% 0%;
+        }
+    }
+}
+
+

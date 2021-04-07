@@ -28,7 +28,9 @@ export default function CatalogMenu() {
             <ul className="catalog-menu__inner">
                 {menu.map((el) => (
                     <li key={uniqid()} className="catalog-menu__item">
-                        <NavLink to={'/' + el.component}>{el.name}</NavLink>
+                        <NavLink to={'/cards/' + el.component}>
+                            {el.name}
+                        </NavLink>
                     </li>
                 ))}
             </ul>

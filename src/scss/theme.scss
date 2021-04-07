@@ -1,5 +1,12 @@
 @import './vars.scss';
 
+.primary {
+    color: $primary;
+}
+.light {
+    color: $primary-light;
+}
+
 .button {
     border: none;
     outline: none;
@@ -68,4 +75,20 @@
     color: #FE5050;
     font-size: 3rem;
     cursor: pointer;
+}
+
+// ReactTransition
+.fade-enter {
+    opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms;
+}
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms;
 }

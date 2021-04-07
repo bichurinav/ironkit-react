@@ -1,5 +1,23 @@
+@import 'src/scss/vars.scss';
+
 .admin {
+    width: 100%;
+    &__title {
+        letter-spacing: 3px;
+        font-size: 16px;
+        color: $primary-light;
+    }
     .form-adder  {
+        width: 350px;
+        max-height: 550px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        select, .wrapper-btn, label {
+            margin-right: 8px;
+        }
+
         &__btn {
             width: 100%;
             margin: 10px 0;
@@ -9,3 +27,5 @@
         }
     }
 }
+
+
