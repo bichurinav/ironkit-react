@@ -46,3 +46,8 @@
         background: #fff;
     }
 }
+
+.collector-btn.active {
+    background:  $primary !important;
+    color: #fff !important;
+}

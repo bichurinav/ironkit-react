@@ -18,6 +18,7 @@ export default function Header() {
                     <CollectorButton
                         className="header__btn-collector"
                         src={collector}
+                        to={'/builder'}
                         alt="collector"
                     />
                     <IconButton

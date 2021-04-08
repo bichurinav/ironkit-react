@@ -5,6 +5,7 @@ import Catalog from './views/Catalog/Catalog';
 import CatalogMenu from './components/CatalogMenu/CatalogMenu';
 import DetailCard from './views/DetailCard/DetailCard';
 import Content from './components/Content/Content';
+import Builder from './views/Builder/Builder';
 import Admin from './views/Admin/Admin';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
                 <CatalogMenu />
                 <Switch>
                     <Route path="/admin" children={<Admin />} />
+                    <Route path="/builder" children={<Builder />} />
                     <Route
                         exact
                         path="/cards/:component"
