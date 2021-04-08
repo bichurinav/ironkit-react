@@ -2,6 +2,21 @@ import SQLite from '../../SQLite.js';
 import uniqid from 'uniqid';
 
 class ComponentController {
+    async getNeededComponent(req, res) {
+        try {
+            const { id, component } = req.params;
+            const db = new SQLite();
+            const neededComponent = await db.all(
+                `SELECT * FROM ${component}_components WHERE id = ${id}`
+            );
+            await db.close();
+            if (!neededComponent.length) throw 'Такого компонента нету!';
+            res.status(200).json(neededComponent[0]);
+        } catch (e) {
+            res.status(500).send({ error: e });
+        }
+    }
+
     async getComponent(req, res) {
         try {
             const { component } = req.params;
@@ -9,11 +24,10 @@ class ComponentController {
             const components = await db.all(
                 `SELECT * FROM ${component}_components`
             );
-
             await db.close();
             res.status(200).json(components);
         } catch (e) {
-            res.send(e.message);
+            res.status(500).send(e.message);
         }
     }
 
