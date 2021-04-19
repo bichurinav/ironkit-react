@@ -53,6 +53,8 @@
 .input.primary {
     font-family: 'Ubuntu';
     border: 1px solid $primary-light;
+    color: rgb(75, 75, 75);
+    font-size: 1.6rem;
     height: 32px;
     border-radius: 5px;
     padding: 0 10px;
@@ -83,12 +85,12 @@
 }
 .fade-enter-active {
     opacity: 1;
-    transition: opacity 500ms;
+    transition: opacity 300ms;
 }
 .fade-exit {
     opacity: 1;
 }
 .fade-exit-active {
     opacity: 0;
-    transition: opacity 500ms;
+    transition: opacity 300ms;
 }

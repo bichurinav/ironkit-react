@@ -1,16 +1,19 @@
 import React from 'react';
 import './TextField.scss';
 
-function TextField({ name, type = 'text', placeholder = '' }) {
+function TextField({ label, name, type = 'text', placeholder = '', field }) {
     return (
         <label className="text-field">
-            <span className="text-field__label">{name}</span>
+            <span className="text-field__label">{label}</span>
             <input
-                className="input primary"
+                className="input primary text-field__input"
                 name={name}
                 type={type}
+                autoComplete={'on'}
                 placeholder={placeholder}
+                {...field.bind()}
             />
+            <span className="text-field__error">{field.error()}</span>
         </label>
     );
 }

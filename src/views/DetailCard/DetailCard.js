@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import { formatPrice } from './../../utils';
 import IconButton from './../../components/IconButton/IconButton';
+import { useSelector } from 'react-redux';
 import uniqid from 'uniqid';
 import load from './load.svg';
 import back from './back.svg';
 import './DetailCard.scss';
 
-function DetailCard({ urlBack = null }) {
+function DetailCard() {
+    const activeBuilderMore = useSelector((state) => state.builder.activeMore);
     const [card, setCard] = useState(null);
     const { id } = useParams();
     const { url } = useRouteMatch();
@@ -27,7 +29,9 @@ function DetailCard({ urlBack = null }) {
     };
 
     const returnBackPage = () => {
-        return history.push(urlBack || `/cards/${component}`);
+        return history.push(
+            activeBuilderMore ? `/builder` : `/cards/${component}`
+        );
     };
 
     const getDetailCard = async (url, history, component) => {
@@ -59,6 +63,7 @@ function DetailCard({ urlBack = null }) {
                 icon={back}
                 size={28}
             />
+            <h2 className="card-detail__name">{card.name}</h2>
             <div className="card-detail__inner">
                 <div className="card-detail__block">
                     <div className="card-detail__image">
@@ -69,9 +74,11 @@ function DetailCard({ urlBack = null }) {
                         />
                     </div>
                     <div className="card-detail__main">
-                        <button className="button primary outlined in-builder">
-                            В сборку!
-                        </button>
+                        {activeBuilderMore ? null : (
+                            <button className="button primary outlined in-builder">
+                                В сборку!
+                            </button>
+                        )}
                         <div className="card-detail__price">
                             <span>Примерная цена</span>
                             <b className="primary">{formatPrice(card.price)}</b>
@@ -79,7 +86,6 @@ function DetailCard({ urlBack = null }) {
                     </div>
                 </div>
                 <div className="card-detail__block params">
-                    <h2 className="card-detail__name">{card.name}</h2>
                     <div className="card-detail__params">
                         {formatParams(JSON.parse(card.params)).map(
                             (param) => param

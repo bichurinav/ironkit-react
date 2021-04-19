@@ -1,4 +1,4 @@
-import { setCount } from './redux/reducers/builderReducer';
+import { setCount, setCards } from './redux/reducers/builderReducer';
 import { store } from './redux/store';
 
 function BuilderStore() {
@@ -13,16 +13,33 @@ function BuilderStore() {
 
             if (existComponent) return false;
             if (!existComponent) {
-                const changeableStore = JSON.stringify([...builderStore, card]);
-                localStorage.setItem('builderCards', changeableStore);
+                const changeableStore = [...builderStore, card];
+                localStorage.setItem(
+                    'builderCards',
+                    JSON.stringify(changeableStore)
+                );
                 count += 1;
-                store.dispatch(setCount(count));
                 localStorage.setItem('builderCount', count);
+                store.dispatch(setCount(count));
+                store.dispatch(setCards(changeableStore));
                 return true;
             }
         },
         get() {
             return builderStore;
+        },
+        delete(card) {
+            const changeableStore = builderStore.filter((el) => {
+                return el.component !== card.component;
+            });
+            localStorage.setItem(
+                'builderCards',
+                JSON.stringify(changeableStore)
+            );
+            count -= 1;
+            store.dispatch(setCount(count));
+            store.dispatch(setCards(changeableStore));
+            localStorage.setItem('builderCount', count);
         },
         count() {
             return count;

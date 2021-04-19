@@ -106,11 +106,15 @@ function FormAdderComponent({ menu }) {
             />
             {imageUpload.files(0) ? <TempImage upload={imageUpload} /> : null}
 
-            <TextField name={'Название'} />
-            <TextField name={'Цена'} type="number" />
+            <TextField name={'Название'} label={'Название'} />
+            <TextField name={'Цена'} label={'Цена'} type="number" />
 
             {params.map((param) => (
-                <TextField key={uniqid()} name={param.name} />
+                <TextField
+                    key={uniqid()}
+                    name={param.name}
+                    label={param.name}
+                />
             ))}
 
             <div className="wrapper-btn">

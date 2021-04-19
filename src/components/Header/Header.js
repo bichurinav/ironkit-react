@@ -4,9 +4,19 @@ import IconButton from './../IconButton/IconButton';
 import CollectorButton from './../CollectorButton/CollectorButton';
 import signIn from './signIn.svg';
 import collector from './collector.svg';
+//import { useHistory } from 'react-router-dom';
+import { setForm } from './../../redux/reducers/userReducer';
+import { useDispatch } from 'react-redux';
 import './Header.scss';
 
 export default function Header() {
+    //const history = useHistory();
+    const dispatch = useDispatch();
+
+    const signInHandler = () => {
+        dispatch(setForm(true));
+    };
+
     return (
         <header className="header">
             <div className="header__inner container">
@@ -22,6 +32,9 @@ export default function Header() {
                         alt="collector"
                     />
                     <IconButton
+                        onClick={() => {
+                            signInHandler();
+                        }}
                         className="header__btn-acc"
                         icon={signIn}
                         alt="signIn"

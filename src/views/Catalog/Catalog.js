@@ -25,7 +25,7 @@ export default function Catalog() {
                 setTimeout(() => {
                     setLoading(false);
                     dispatch(setCards(res));
-                }, 500);
+                }, 300);
             } catch (e) {
                 setLoading(true);
                 dispatch(setCards([]));

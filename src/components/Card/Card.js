@@ -3,7 +3,8 @@ import { formatPrice } from './../../utils';
 import BuilderStore from './../../BuilderStore';
 import IconButton from './../IconButton/IconButton';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { setActiveMore } from './../../redux/reducers/builderReducer';
+import { useSelector, useDispatch } from 'react-redux';
 import boxIcon from './box.svg';
 import deleteIcon from './delete.svg';
 import './Card.scss';
@@ -11,7 +12,9 @@ import './Card.scss';
 function Card({ card, builder = false }) {
     const params = JSON.parse(card.params);
     const arParams = Object.keys(params);
+    const dispatch = useDispatch();
     const menu = useSelector((state) => state.catalog.menu);
+    const activeMore = useSelector((state) => state.builder.activeMore);
 
     const paramFirst = arParams[0];
     const paramSecond = arParams[1];
@@ -20,14 +23,23 @@ function Card({ card, builder = false }) {
 
     const putComponentInBuilder = (card) => {
         const isChange = BuilderStore().set(card);
-        if (isChange) {
-            
-            alert(`${card.name} добавлен в сборщик!`);
-        } else {
+        if (!isChange) {
             const component = menu.filter(
                 (el) => el.component === card.component
             )[0];
             alert(`${component.name} уже лежит в сборщике!`);
+        }
+    };
+
+    const activeBuilderMore = () => {
+        if (builder) {
+            if (!activeMore) {
+                dispatch(setActiveMore(true));
+            }
+        } else {
+            if (activeMore) {
+                dispatch(setActiveMore(false));
+            }
         }
     };
 
@@ -50,7 +62,10 @@ function Card({ card, builder = false }) {
                     </div>
                     <Link
                         className="primary card__more"
-                        to={`${url}/${card.id}`}
+                        onClick={() => activeBuilderMore()}
+                        to={`${builder ? `cards/${card.component}` : url}/${
+                            card.id
+                        }`}
                     >
                         подробнее
                     </Link>
@@ -68,6 +83,9 @@ function Card({ card, builder = false }) {
                 ) : (
                     <IconButton
                         className="card__btn-del"
+                        onClick={() => {
+                            BuilderStore().delete(card);
+                        }}
                         icon={deleteIcon}
                         size={30}
                     />

@@ -1,0 +1,18 @@
+.builder {
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -0.5rem;
+    }
+    &__item {
+        flex-basis: calc(100% / 2 - 1rem);
+        display: flex;
+        justify-content: center;
+        color: rgb(165, 165, 165);
+        font-size: 1.8rem;
+        align-items: center;
+        min-height: 150px;
+        border: 1px dashed silver;
+        margin: 0.5rem;
+    }
+}
