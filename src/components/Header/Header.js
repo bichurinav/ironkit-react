@@ -5,8 +5,10 @@ import CollectorButton from './../CollectorButton/CollectorButton';
 import signIn from './signIn.svg';
 import logout from './logout.svg';
 import collector from './collector.svg';
+import menu from './menu.svg';
 //import { useHistory } from 'react-router-dom';
 import { setAuth, setForm } from './../../redux/reducers/userReducer';
+import { setMenuActive } from './../../redux/reducers/catalogReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAuth } from './../../utils';
 import { Link } from 'react-router-dom';
@@ -38,8 +40,16 @@ export default function Header() {
         <header className="header">
             <div className="header__inner container">
                 <div className="header-block">
+                    <IconButton
+                        onClick={() => {
+                            dispatch(setMenuActive());
+                        }}
+                        icon={menu}
+                        className="header__btn-menu"
+                        size={30}
+                    />
                     <Logo className="header__logo" />
-                    <Menu />
+                    {/* <Menu /> */}
                 </div>
                 <div className="header-block">
                     {user.login ? <User user={user} /> : null}
@@ -84,21 +94,21 @@ function User({ user }) {
     );
 }
 
-function Menu() {
-    return (
-        <nav className="menu">
-            <ul className="menu__inner">
-                <li className="menu__item">
-                    <a href="/#" className="menu__link">
-                        Инструкция
-                    </a>
-                </li>
-                <li className="menu__item">
-                    <a href="/#" className="menu__link">
-                        О проекте
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    );
-}
+// function Menu() {
+//     return (
+//         <nav className="menu">
+//             <ul className="menu__inner">
+//                 <li className="menu__item">
+//                     <a href="/#" className="menu__link">
+//                         Инструкция
+//                     </a>
+//                 </li>
+//                 <li className="menu__item">
+//                     <a href="/#" className="menu__link">
+//                         О проекте
+//                     </a>
+//                 </li>
+//             </ul>
+//         </nav>
+//     );
+// }

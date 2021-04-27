@@ -22,4 +22,10 @@ componentRouter.put(
     ComponentController.updatePrice
 );
 
+componentRouter.put(
+    '/count/:component/:id',
+    checkAdmin,
+    ComponentController.updateCount
+);
+
 export default componentRouter;

@@ -6,6 +6,7 @@ export const catalogSlice = createSlice({
         cards: [],
         count: null,
         menu: [],
+        menuActive: false,
     },
     reducers: {
         setCards: (state, action) => {
@@ -15,8 +16,11 @@ export const catalogSlice = createSlice({
         setMenu: (state, action) => {
             state.menu = action.payload;
         },
+        setMenuActive: (state, action) => {
+            state.menuActive = !state.menuActive;
+        },
     },
 });
 
-export const { setCards, setMenu } = catalogSlice.actions;
+export const { setCards, setMenu, setMenuActive } = catalogSlice.actions;
 export default catalogSlice.reducer;

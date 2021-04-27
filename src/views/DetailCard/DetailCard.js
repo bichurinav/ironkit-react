@@ -70,6 +70,16 @@ function DetailCard() {
                         />
                     </div>
                     <div className="card-detail__main">
+                        <div className="card-detail__count">
+                            <span>
+                                На складе{' '}
+                                <b className="primary">{card.count} шт.</b>
+                            </span>
+                        </div>
+                        <div className="card-detail__price">
+                            <span>Стоимость</span>
+                            <b className="primary">{formatPrice(card.price)}</b>
+                        </div>
                         {activeBuilderMore ? null : (
                             <button
                                 onClick={() =>
@@ -80,10 +90,6 @@ function DetailCard() {
                                 В сборку!
                             </button>
                         )}
-                        <div className="card-detail__price">
-                            <span>Примерная цена</span>
-                            <b className="primary">{formatPrice(card.price)}</b>
-                        </div>
                     </div>
                 </div>
                 <div className="card-detail__block params">

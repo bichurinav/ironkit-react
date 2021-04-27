@@ -24,6 +24,7 @@
         flex-direction: column;
         padding: 8px 0;
         button.in-builder {
+            margin-top: 5px;
             &:hover {
                 background: $primary;
                 color: #fff;
@@ -31,8 +32,12 @@
         }
     }
 
-    &__price {
-        padding: 8px 0;
+    &__count {
+        margin-top: 5px;
+    }
+
+    &__price, &__count {
+        padding: 2.5px 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -69,5 +74,26 @@
     &__image {
         height: 160px;
     }
-
 }
+
+@media (max-width: 499px) {
+    .card-detail {
+        &__inner {
+            flex-wrap: wrap;
+        }
+        &__name, &__image {
+            text-align: center;
+        }
+        &__block {
+            width: 100%;
+            margin-left: 0;
+        }
+        &__block.params {
+            margin-left: 0px;
+        }
+        &__params {
+            width: 100%;
+        }
+    }
+}
+

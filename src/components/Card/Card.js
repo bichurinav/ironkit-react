@@ -19,6 +19,7 @@ function Card({ card, builder = false }) {
     const activeMore = useSelector((state) => state.builder.activeMore);
     const imageUpload = useInput('');
     const priceField = useInput('');
+    const countField = useInput('');
     const { url } = useRouteMatch();
 
     useEffect(() => {
@@ -45,20 +46,19 @@ function Card({ card, builder = false }) {
         }
     };
 
-    const changePrice = async (e) => {
+    const changeIntParam = async (e, field, paramName) => {
         try {
             e.preventDefault();
-            if (isNaN(+priceField.value())) return;
-            if (card.price === +priceField.value()) return;
-
+            if (isNaN(+field.value())) return;
+            if (card[paramName] === +field.value()) return;
             const req = await fetch(
-                `/api/component/price/${card.component}/${card.id}`,
+                `/api/component/${paramName}/${card.component}/${card.id}`,
                 {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8',
                     },
-                    body: JSON.stringify({ price: priceField.value() }),
+                    body: JSON.stringify({ [paramName]: field.value() }),
                 }
             );
             if (req.ok) {
@@ -140,6 +140,18 @@ function Card({ card, builder = false }) {
                         подробнее
                     </Link>
                 </div>
+
+                {user.admin && !builder ? (
+                    <ParamChanger
+                        paramValue={card.count}
+                        field={countField}
+                        callback={changeIntParam}
+                        paramName={'count'}
+                    />
+                ) : (
+                    <span className="card__count">{card.count || 0} шт.</span>
+                )}
+
                 {user.admin && !builder ? (
                     <div
                         onClick={() => removeCard(card.image)}
@@ -148,11 +160,13 @@ function Card({ card, builder = false }) {
                         &times;
                     </div>
                 ) : null}
+
                 {user.admin && !builder ? (
-                    <PriceChanger
-                        price={card.price}
-                        priceField={priceField}
-                        changePrice={changePrice}
+                    <ParamChanger
+                        paramValue={card.price}
+                        field={priceField}
+                        callback={changeIntParam}
+                        paramName={'price'}
                     />
                 ) : (
                     <span className="card__price">
@@ -195,14 +209,14 @@ function ImageChanger({ image, imageUpload }) {
     );
 }
 
-function PriceChanger({ price, priceField, changePrice }) {
+function ParamChanger({ paramValue, field, callback, paramName }) {
     return (
-        <form onSubmit={(e) => changePrice(e)}>
+        <form onSubmit={(e) => callback.call(null, e, field, paramName)}>
             <input
-                className="card__price-changer"
+                className={`card__${paramName}-changer`}
                 type="text"
-                placeholder={price}
-                {...priceField.bind()}
+                placeholder={paramValue}
+                {...field.bind()}
             />
         </form>
     );

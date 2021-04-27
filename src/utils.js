@@ -15,7 +15,7 @@ export const formatPrice = (price) => {
     }
     return getFormatRU(price);
     function getFormatRU(price) {
-        return '≈ ' + price + ' ₽';
+        return price + ' ₽';
     }
 };
 

@@ -43,6 +43,7 @@ class ComponentController {
         try {
             const name = req.body['Название'];
             const price = req.body['Цена'];
+            const count = req.body['Количество на складе'];
             const component = req.body.component;
             let params = [];
             const arParams = Object.entries(req.body);
@@ -50,7 +51,8 @@ class ComponentController {
                 if (
                     arParams[i][0] === 'component' ||
                     arParams[i][0] === 'Название' ||
-                    arParams[i][0] === 'Цена'
+                    arParams[i][0] === 'Цена' ||
+                    arParams[i][0] === 'Количество на складе'
                 ) {
                     continue;
                 }
@@ -67,8 +69,15 @@ class ComponentController {
 
             const db = new SQLite();
             await db.run(
-                `INSERT INTO ${component}_components (component, name, price, params, image) VALUES (?, ?, ?, ?, ?)`,
-                [component, name, price, JSON.stringify(params), imageName]
+                `INSERT INTO ${component}_components (component, name, count, price, params, image) VALUES (?, ?, ?, ?, ?, ?)`,
+                [
+                    component,
+                    name,
+                    count,
+                    price,
+                    JSON.stringify(params),
+                    imageName,
+                ]
             );
             await db.close();
             res.status(200).send(`${name} успешно добавлен!`);
@@ -126,6 +135,24 @@ class ComponentController {
             );
             if (updatedPrice.changes) {
                 return res.status(200).json({ message: 'Цена изменена!' });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async updateCount(req, res) {
+        try {
+            const { component, id } = req.params;
+            const { count } = req.body;
+            const db = new SQLite();
+            const updatedCount = await db.run(
+                `UPDATE ${component}_components SET count = ${+count} WHERE id = ${id}`
+            );
+            if (updatedCount.changes) {
+                return res.status(200).json({
+                    message: 'Количество комплектующих на складе изменено!',
+                });
             }
         } catch (e) {
             console.error(e);

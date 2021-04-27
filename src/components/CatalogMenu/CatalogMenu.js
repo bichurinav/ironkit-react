@@ -5,7 +5,7 @@ import { setMenu } from './../../redux/reducers/catalogReducer';
 import uniqid from 'uniqid';
 import './CatalogMenu.scss';
 
-export default function CatalogMenu() {
+export default function CatalogMenu({ className }) {
     const menu = useSelector((state) => state.catalog.menu);
     const dispatch = useDispatch();
     const getMenu = () => {
@@ -23,8 +23,12 @@ export default function CatalogMenu() {
         dispatch(getMenu());
     }, [dispatch]);
 
+    const classes = ['catalog-menu'];
+
+    if (className) classes.push(className);
+
     return (
-        <nav className="catalog-menu">
+        <nav className={classes.join(' ')}>
             <ul className="catalog-menu__inner">
                 {menu.map((el) => (
                     <li key={uniqid()} className="catalog-menu__item">

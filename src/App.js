@@ -17,9 +17,11 @@ import PrivateRouter from './components/PrivateRouter/PrivateRouter';
 import BuilderStore from './BuilderStore';
 
 export default function App() {
-    const authFlag = useSelector((state) => state.user.form);
+    const authActive = useSelector((state) => state.user.form);
     const user = useSelector((state) => state.user.user);
+    const menuActive = useSelector((state) => state.catalog.menuActive);
     const authRef = useRef();
+    const menuRef = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
         const cards = BuilderStore().get();
@@ -38,8 +40,9 @@ export default function App() {
 
     return (
         <div className="App">
+            {/* Auth */}
             <CSSTransition
-                in={authFlag}
+                in={authActive}
                 nodeRef={authRef}
                 timeout={300}
                 classNames="fade"
@@ -47,7 +50,18 @@ export default function App() {
             >
                 <Auth />
             </CSSTransition>
+            {/* Header */}
             <Header />
+            {/* MenuMobile */}
+            <CSSTransition
+                in={menuActive}
+                nodeRef={menuRef}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit={true}
+            >
+                <CatalogMenu className="mobile" />
+            </CSSTransition>
             <Content>
                 <CatalogMenu />
                 <Switch>

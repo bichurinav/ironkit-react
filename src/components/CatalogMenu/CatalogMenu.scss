@@ -35,7 +35,6 @@
     }
 
     &__form {
-
         &-content {
             display: flex;
             align-items: center;
@@ -62,6 +61,20 @@
                 margin-left: auto;
             }
         }
+    }
+}
 
+.catalog-menu.mobile {
+    display: none;
+    margin-top: 3px;
+    width: 100%;
+}
+
+@media (max-width: 765px) {
+    .catalog-menu {
+        display: none;
+    }
+    .catalog-menu.mobile {
+        display: block;
     }
 }

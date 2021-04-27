@@ -13,6 +13,9 @@
         animation: card 1.8s;
         animation-iteration-count: infinite;
         animation-timing-function: ease-in-out;
+        @media (max-width: 1169px) {
+            flex-basis: 100%;
+        }
     }
 
     @keyframes card {
@@ -26,6 +29,7 @@
             background-position: 100% 0%;
         }
     }
+
 }
 
 
