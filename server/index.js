@@ -7,7 +7,7 @@ import usersRouter from './api/users.js';
 import path from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = 80;
 
 app.use(express.json());
 app.use(fileUpload({}));
