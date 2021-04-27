@@ -21,7 +21,7 @@
     &__btn-acc {
         margin-left: 15px;
     }
-
+    
     .menu {
 
         &__inner {
@@ -46,4 +46,11 @@
         }
     }
 
+}
+
+a.header__user {
+    color: $primary;
+    &:hover {
+        color: $primary-light;
+    }
 }

@@ -1,33 +1,71 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { formatPrice } from './../../utils';
 import BuilderStore from './../../BuilderStore';
 import IconButton from './../IconButton/IconButton';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { setActiveMore } from './../../redux/reducers/builderReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { putComponentInBuilder } from './../../utils';
+import { useInput } from './../../hooks';
 import boxIcon from './box.svg';
 import deleteIcon from './delete.svg';
 import './Card.scss';
 
 function Card({ card, builder = false }) {
     const params = JSON.parse(card.params);
-    const arParams = Object.keys(params);
     const dispatch = useDispatch();
     const menu = useSelector((state) => state.catalog.menu);
+    const user = useSelector((state) => state.user.user);
     const activeMore = useSelector((state) => state.builder.activeMore);
-
-    const paramFirst = arParams[0];
-    const paramSecond = arParams[1];
-    const paramThird = arParams[2];
+    const imageUpload = useInput('');
+    const priceField = useInput('');
     const { url } = useRouteMatch();
 
-    const putComponentInBuilder = (card) => {
-        const isChange = BuilderStore().set(card);
-        if (!isChange) {
-            const component = menu.filter(
-                (el) => el.component === card.component
-            )[0];
-            alert(`${component.name} уже лежит в сборщике!`);
+    useEffect(() => {
+        if (imageUpload.value()) {
+            changeImageCard(card, imageUpload);
+        }
+    }, [imageUpload, card]);
+
+    const changeImageCard = async (card, imageUpload) => {
+        try {
+            const body = new FormData();
+            body.append('image', imageUpload.files(0));
+            body.append('imageName', card.image);
+
+            const req = await fetch(`/api/component/update-image`, {
+                method: 'PUT',
+                body,
+            });
+            if (req.ok) {
+                window.location.href = `/cards/${card.component}`;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const changePrice = async (e) => {
+        try {
+            e.preventDefault();
+            if (isNaN(+priceField.value())) return;
+            if (card.price === +priceField.value()) return;
+
+            const req = await fetch(
+                `/api/component/price/${card.component}/${card.id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    body: JSON.stringify({ price: priceField.value() }),
+                }
+            );
+            if (req.ok) {
+                window.location.href = `/cards/${card.component}`;
+            }
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -43,21 +81,53 @@ function Card({ card, builder = false }) {
         }
     };
 
+    const removeCard = async (image) => {
+        try {
+            const body = new FormData();
+            body.append('imageName', image);
+            const req = await fetch(
+                `/api/component/${card.component}/${card.id}`,
+                {
+                    method: 'DELETE',
+                    body,
+                }
+            );
+            if (req.ok) {
+                window.location.href = `/cards/${card.component}`;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return (
         <div className="card">
             <div className="card__inner">
-                <img className="card__image" src={'../' + card.image} alt="" />
+                {user.admin && !builder ? (
+                    <ImageChanger
+                        image={card.image}
+                        imageUpload={imageUpload}
+                    />
+                ) : (
+                    <div className="card__block-image">
+                        <img
+                            className="card__image"
+                            src={'../' + card.image}
+                            alt=""
+                        />
+                    </div>
+                )}
                 <div className="card__info">
                     <h2 className="card__name">{card.name}</h2>
                     <div className="card__params">
                         <div className="card__param">
-                            {paramFirst}: {params[paramFirst]}
+                            {params[0].name}: {params[0].value}
                         </div>
                         <div className="card__param">
-                            {paramSecond}: {params[paramSecond]}
+                            {params[1].name}: {params[1].value}
                         </div>
                         <div className="card__param">
-                            {paramThird}: {params[paramThird]}
+                            {params[2].name}: {params[2].value}
                         </div>
                     </div>
                     <Link
@@ -70,12 +140,31 @@ function Card({ card, builder = false }) {
                         подробнее
                     </Link>
                 </div>
-                <span className="card__price">{formatPrice(card.price)}</span>
+                {user.admin && !builder ? (
+                    <div
+                        onClick={() => removeCard(card.image)}
+                        className="card__del"
+                    >
+                        &times;
+                    </div>
+                ) : null}
+                {user.admin && !builder ? (
+                    <PriceChanger
+                        price={card.price}
+                        priceField={priceField}
+                        changePrice={changePrice}
+                    />
+                ) : (
+                    <span className="card__price">
+                        {formatPrice(card.price)}
+                    </span>
+                )}
+
                 {!builder ? (
                     <IconButton
                         className="card__btn-box"
                         onClick={() => {
-                            putComponentInBuilder(card);
+                            putComponentInBuilder(card, menu);
                         }}
                         icon={boxIcon}
                         size={40}
@@ -92,6 +181,30 @@ function Card({ card, builder = false }) {
                 )}
             </div>
         </div>
+    );
+}
+
+function ImageChanger({ image, imageUpload }) {
+    return (
+        <div className="card__block-image">
+            <label className="card-img-changer">
+                <img className="card__image" src={'../' + image} alt="" />
+                <input {...imageUpload.bind()} type="file" accept="image/*" />
+            </label>
+        </div>
+    );
+}
+
+function PriceChanger({ price, priceField, changePrice }) {
+    return (
+        <form onSubmit={(e) => changePrice(e)}>
+            <input
+                className="card__price-changer"
+                type="text"
+                placeholder={price}
+                {...priceField.bind()}
+            />
+        </form>
     );
 }
 

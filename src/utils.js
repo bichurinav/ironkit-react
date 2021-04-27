@@ -1,3 +1,5 @@
+import BuilderStore from './BuilderStore';
+
 export const formatPrice = (price) => {
     const arrNums = price.toString().split('');
     const length = arrNums.length;
@@ -14,5 +16,40 @@ export const formatPrice = (price) => {
     return getFormatRU(price);
     function getFormatRU(price) {
         return '≈ ' + price + ' ₽';
+    }
+};
+
+export const checkAuth = async () => {
+    try {
+        const req = await fetch('/api/users/auth');
+        const res = await req.json();
+        if (res.login) {
+            return res;
+        }
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const removeAuth = async () => {
+    try {
+        const req = await fetch('/api/users/auth-exit');
+        const res = await req.json();
+        if (res.auth === false) {
+            return res;
+        }
+        return res;
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const putComponentInBuilder = (card, menu) => {
+    const isChange = BuilderStore().set(card);
+    if (!isChange) {
+        const component = menu.filter(
+            (el) => el.component === card.component
+        )[0];
+        alert(`${component.name} уже лежит в сборщике!`);
     }
 };

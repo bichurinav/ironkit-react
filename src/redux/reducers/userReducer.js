@@ -3,17 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        admin: false,
-        auth: false,
         form: false,
-        login: null,
+        user: {
+            login: '',
+            admin: false,
+        },
     },
     reducers: {
-        setAdmin: (state, action) => {
-            state.admin = action.payload;
-        },
         setAuth: (state, action) => {
-            state.auth = action.payload;
+            state.user.login = action.payload.login;
+            state.user.admin = action.payload.admin;
         },
         setForm: (state, action) => {
             state.form = action.payload;
@@ -21,5 +20,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { setAdmin, setForm } = userSlice.actions;
+export const { setAuth, setForm } = userSlice.actions;
 export default userSlice.reducer;

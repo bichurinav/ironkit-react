@@ -2,11 +2,12 @@
   "name": "ironkit",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:25565",
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "bcrypt": "^5.0.1",
+    "cookie": "^0.4.1",
+    "jsonwebtoken": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "nodemon server/server.js",
+    "server": "nodemon server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import TextField from '../../components/TextField/TextField';
 import { useInput } from './../../hooks';
 import { useDispatch } from 'react-redux';
-import { setForm } from './../../redux/reducers/userReducer';
+import { setForm, setAuth } from './../../redux/reducers/userReducer';
+import { checkAuth } from './../../utils';
 import './Auth.scss';
 
 function Auth() {
@@ -28,12 +29,21 @@ function Auth() {
                 body: JSON.stringify(body),
             });
             const res = await req.json();
-            if (!req.ok) throw res;
-            if (res.message) return setAuthError(res.message);
-            setAuthError('');
-            console.table(res);
+            if (!req.ok) throw res.message;
+            if (res.auth) {
+                setAuthError('');
+                checkAuth().then((res) => {
+                    dispatch(
+                        setAuth({
+                            login: res.login,
+                            admin: res.admin,
+                        })
+                    );
+                    dispatch(setForm(false));
+                });
+            }
         } catch (e) {
-            console.error(e.message);
+            setAuthError(e);
         }
     };
 
@@ -142,7 +152,7 @@ function Auth() {
             }
         } else {
             if (checkForm(login, password)) {
-                addGetUser(body, '/api/users');
+                addGetUser(body, '/api/users/login');
             }
         }
     };

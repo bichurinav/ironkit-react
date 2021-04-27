@@ -11,6 +11,7 @@ export default function Catalog() {
     let { component } = useParams();
     const dispatch = useDispatch();
     const components = useSelector((state) => state.catalog.cards);
+    //const count = useSelector((state) => state.catalog.count);
     const [loading, setLoading] = useState(true);
 
     const getComponent = (component) => {

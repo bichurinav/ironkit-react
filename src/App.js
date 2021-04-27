@@ -11,15 +11,29 @@ import Admin from './views/Admin/Admin';
 import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCards } from './redux/reducers/builderReducer';
+import { setAuth } from './redux/reducers/userReducer';
+import { checkAuth } from './utils';
+import PrivateRouter from './components/PrivateRouter/PrivateRouter';
 import BuilderStore from './BuilderStore';
 
 export default function App() {
     const authFlag = useSelector((state) => state.user.form);
+    const user = useSelector((state) => state.user.user);
     const authRef = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
         const cards = BuilderStore().get();
         dispatch(setCards(cards));
+        checkAuth().then((res) => {
+            if (res) {
+                dispatch(
+                    setAuth({
+                        login: res.login,
+                        admin: res.admin,
+                    })
+                );
+            }
+        });
     }, [dispatch]);
 
     return (
@@ -37,7 +51,11 @@ export default function App() {
             <Content>
                 <CatalogMenu />
                 <Switch>
-                    <Route path="/admin" children={<Admin />} />
+                    <PrivateRouter
+                        component={Admin}
+                        admin={user.admin}
+                        path="/admin"
+                    />
                     <Route path="/builder" children={<Builder />} />
                     <Route
                         exact

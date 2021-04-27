@@ -29,7 +29,9 @@ export default function CatalogMenu() {
                 {menu.map((el) => (
                     <li key={uniqid()} className="catalog-menu__item">
                         <NavLink to={'/cards/' + el.component}>
-                            <img src={'../' + el.icon} alt="" />
+                            <div className="catalog-menu__image">
+                                <img src={'/' + el.icon} alt="" />
+                            </div>
                             {el.name}
                         </NavLink>
                     </li>

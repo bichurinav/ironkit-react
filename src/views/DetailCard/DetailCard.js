@@ -3,6 +3,7 @@ import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import { formatPrice } from './../../utils';
 import IconButton from './../../components/IconButton/IconButton';
 import { useSelector } from 'react-redux';
+import { putComponentInBuilder } from './../../utils';
 import uniqid from 'uniqid';
 import load from './load.svg';
 import back from './back.svg';
@@ -10,6 +11,7 @@ import './DetailCard.scss';
 
 function DetailCard() {
     const activeBuilderMore = useSelector((state) => state.builder.activeMore);
+    const menu = useSelector((state) => state.catalog.menu);
     const [card, setCard] = useState(null);
     const { id } = useParams();
     const { url } = useRouteMatch();
@@ -18,20 +20,14 @@ function DetailCard() {
     const apiUrl = `/api/component/${component}/${id}`;
 
     const formatParams = (params) => {
-        return Object.keys(params).map((param) => {
+        return params.map((param) => {
             return (
                 <div key={uniqid()} className="card-detail__param">
-                    <span className="param-name">{param}:</span>{' '}
-                    <span className="param-value">{params[param]}</span>
+                    <span className="param-name">{param.name}:</span>{' '}
+                    <span className="param-value">{param.value}</span>
                 </div>
             );
         });
-    };
-
-    const returnBackPage = () => {
-        return history.push(
-            activeBuilderMore ? `/builder` : `/cards/${component}`
-        );
     };
 
     const getDetailCard = async (url, history, component) => {
@@ -57,7 +53,7 @@ function DetailCard() {
         <div className="card-detail">
             <IconButton
                 onClick={() => {
-                    returnBackPage();
+                    history.goBack();
                 }}
                 className="card-detail__back"
                 icon={back}
@@ -75,7 +71,12 @@ function DetailCard() {
                     </div>
                     <div className="card-detail__main">
                         {activeBuilderMore ? null : (
-                            <button className="button primary outlined in-builder">
+                            <button
+                                onClick={() =>
+                                    putComponentInBuilder(card, menu)
+                                }
+                                className="button primary outlined in-builder"
+                            >
                                 В сборку!
                             </button>
                         )}

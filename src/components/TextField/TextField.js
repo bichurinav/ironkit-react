@@ -1,7 +1,13 @@
 import React from 'react';
 import './TextField.scss';
 
-function TextField({ label, name, type = 'text', placeholder = '', field }) {
+function TextField({
+    label,
+    name,
+    type = 'text',
+    placeholder = '',
+    field = { bind: () => null, error: () => null },
+}) {
     return (
         <label className="text-field">
             <span className="text-field__label">{label}</span>
