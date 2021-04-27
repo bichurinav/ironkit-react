@@ -1,9 +1,21 @@
+@import 'src/scss/vars.scss';
+
 .builder {
+    
     &-list {
         display: flex;
         flex-wrap: wrap;
         margin: -0.5rem;
     }
+
+    &__error {
+        color: rgb(255, 71, 71);
+        display: block;
+        padding: 3px;
+        margin-bottom: 5px;
+
+    }
+
     &__item {
         flex-basis: calc(100% / 2 - 1rem);
         display: flex;
@@ -15,5 +27,8 @@
         min-height: 150px;
         border: 1px dashed silver;
         margin: 0.5rem;
+        @media (max-width: 1169px) {
+            flex-basis: 100%;
+        }
     }
 }
