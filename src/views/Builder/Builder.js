@@ -120,7 +120,7 @@ function Builder() {
                 (el) => el.name === 'Мощность блока питания'
             )[0];
             const bpPower = bp.filter((el) => el.name === 'Мощность')[0];
-            if (vcPower.value !== bpPower.value) {
+            if (parseInt(vcPower.value) > parseInt(bpPower.value)) {
                 error.push(
                     `Рекомендуемая мощность блока питания ${vcPower.value}`
                 );
