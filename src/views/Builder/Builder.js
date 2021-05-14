@@ -118,7 +118,7 @@ function Builder() {
         };
 
         builderList.forEach((el) => {
-            if (el.count >= 0) {
+            if (el.price >= 0) {
                 countComponents += 1;
                 total += el.price;
                 components[el.component] = JSON.parse(el.params);
