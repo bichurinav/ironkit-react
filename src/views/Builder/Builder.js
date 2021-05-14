@@ -42,7 +42,7 @@ function Builder() {
             descField.setError('');
         }
 
-        let list = builderList.filter((el) => el.count);
+        let list = builderList.filter((el) => el.price);
         let arr = [];
         for (let i = 0; i < list.length; i++) {
             arr.push({ ...list[i], quantity: 1 });
