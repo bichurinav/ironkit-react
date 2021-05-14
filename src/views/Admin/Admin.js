@@ -108,11 +108,6 @@ function FormAdderComponent({ menu }) {
 
             <TextField name={'Название'} label={'Название'} />
             <TextField name={'Цена'} label={'Цена'} type="number" />
-            <TextField
-                name={'Количество на складе'}
-                label={'Количество на складе'}
-                type="number"
-            />
 
             {params.map((param) => (
                 <TextField

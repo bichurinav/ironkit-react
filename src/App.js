@@ -14,6 +14,8 @@ import { setCards } from './redux/reducers/builderReducer';
 import { setAuth } from './redux/reducers/userReducer';
 import { checkAuth } from './utils';
 import PrivateRouter from './components/PrivateRouter/PrivateRouter';
+import Kits from './views/Kits/Kits';
+import DetailKit from './views/DetailKit/DetailKit';
 import BuilderStore from './BuilderStore';
 
 export default function App() {
@@ -31,6 +33,7 @@ export default function App() {
                 dispatch(
                     setAuth({
                         login: res.login,
+                        email: res.email,
                         admin: res.admin,
                     })
                 );
@@ -67,9 +70,12 @@ export default function App() {
                 <Switch>
                     <PrivateRouter
                         component={Admin}
-                        admin={user.admin}
+                        access={user.admin}
                         path="/admin"
                     />
+
+                    <Route exact path="/kits" children={<Kits />} />
+                    <Route path="/kits/:user/:id" children={<DetailKit />} />
                     <Route path="/builder" children={<Builder />} />
                     <Route
                         exact

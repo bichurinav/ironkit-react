@@ -49,7 +49,7 @@ export default function Header() {
                         size={30}
                     />
                     <Logo className="header__logo" />
-                    {/* <Menu /> */}
+                    <Menu />
                 </div>
                 <div className="header-block">
                     {user.login ? <User user={user} /> : null}
@@ -94,21 +94,16 @@ function User({ user }) {
     );
 }
 
-// function Menu() {
-//     return (
-//         <nav className="menu">
-//             <ul className="menu__inner">
-//                 <li className="menu__item">
-//                     <a href="/#" className="menu__link">
-//                         Инструкция
-//                     </a>
-//                 </li>
-//                 <li className="menu__item">
-//                     <a href="/#" className="menu__link">
-//                         О проекте
-//                     </a>
-//                 </li>
-//             </ul>
-//         </nav>
-//     );
-// }
+function Menu() {
+    return (
+        <nav className="menu">
+            <ul className="menu__inner">
+                <li className="menu__item">
+                    <Link className="menu__link" to="/kits">
+                        Сборки
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    );
+}

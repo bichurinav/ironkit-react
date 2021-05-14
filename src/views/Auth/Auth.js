@@ -14,6 +14,7 @@ function Auth() {
     const login = useInput('');
     const password = useInput('');
     const repeatedPassword = useInput('');
+    //const email = useInput('');
     const classesRegBtn = ['auth__reg-btn'];
     const classesAuthBtn = ['auth__auth-btn'];
     if (currentForm === 'reg') classesRegBtn.push('active');
@@ -36,6 +37,7 @@ function Auth() {
                     dispatch(
                         setAuth({
                             login: res.login,
+                            name: res.name,
                             admin: res.admin,
                         })
                     );
@@ -57,9 +59,9 @@ function Auth() {
             const fields = [login, password];
             if (repeatedPassword) {
                 fields.push(repeatedPassword);
+                //fields.push(email);
                 reg = true;
             }
-
             checkEmpty(fields);
             if (reg) {
                 checkRepeated(password, repeatedPassword);
@@ -74,41 +76,52 @@ function Auth() {
                         arr.push(1);
                     } else {
                         if (field.error()) field.setError('');
-                        checkLength(login);
-                        checkLength(password, true);
+                        checkLength(login, 'login');
+                        checkLength(password, 'password');
+                        // if (reg) {
+                        //     checkLength(email, 'email');
+                        // }
                     }
                 });
             }
-            function checkLength(field, pass) {
-                if (!pass) {
-                    if (
-                        field.value().length > 1 &&
-                        field.value().length <= 16
-                    ) {
-                        if (field.error()) field.setError('');
-                        checkInvalid(login, 'login');
-                    } else {
-                        field.setError('Логин от 2 до 16 символов');
-                        arr.push(1);
-                    }
-                } else {
-                    if (
-                        field.value().length > 3 &&
-                        field.value().length <= 32
-                    ) {
-                        if (field.error()) field.setError('');
-                        checkInvalid(password, 'password');
-                    } else {
-                        field.setError('Пароль от 4 до 32 символов');
-                        arr.push(1);
-                    }
+            function checkLength(field, fieldName) {
+                switch (fieldName) {
+                    case 'login':
+                        if (
+                            field.value().length > 1 &&
+                            field.value().length <= 16
+                        ) {
+                            if (field.error()) field.setError('');
+                            checkInvalid(field, 'login');
+                        } else {
+                            field.setError('Логин от 2 до 16 символов');
+                            arr.push(1);
+                        }
+                        break;
+                    case 'password':
+                        if (
+                            field.value().length > 3 &&
+                            field.value().length <= 32
+                        ) {
+                            if (field.error()) field.setError('');
+                            checkInvalid(field, 'password');
+                        } else {
+                            field.setError('Пароль от 4 до 32 символов');
+                            arr.push(1);
+                        }
+                        break;
+                    // case 'email':
+                    //     checkInvalid(field, 'email');
+                    //     break;
+                    default:
+                        return;
                 }
             }
             function checkInvalid(field, name) {
                 switch (name) {
                     case 'login':
                         if (!/^[a-zA-Z](.[a-zA-Z0-9_]*)$/.test(field.value())) {
-                            field.setError('Некорректный логин');
+                            field.setError('Некорректный пользователь');
                             arr.push(1);
                         } else {
                             if (field.error()) field.setError('');
@@ -124,6 +137,18 @@ function Auth() {
                             if (field.error()) field.setError('');
                         }
                         break;
+                    // case 'email':
+                    //     if (
+                    //         !/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim.test(
+                    //             field.value()
+                    //         )
+                    //     ) {
+                    //         field.setError('Неверный формат');
+                    //         arr.push(1);
+                    //     } else {
+                    //         if (field.error()) field.setError('');
+                    //     }
+                    //     break;
                     default:
                         return;
                 }
@@ -147,6 +172,7 @@ function Auth() {
 
         if (currentForm === 'reg') {
             body.repeatedPassword = repeatedPassword.value();
+            //body.email = email.value();
             if (checkForm(login, password, repeatedPassword)) {
                 addGetUser(body, '/api/users/add');
             }
@@ -165,6 +191,7 @@ function Auth() {
             if (login.error()) login.setError();
             if (password.error()) password.setError();
             if (repeatedPassword.error()) repeatedPassword.setError();
+            //if (email.error()) email.setError();
             if (authError) setAuthError('');
             setCurrentForm(btnName);
             return;
@@ -185,7 +212,19 @@ function Auth() {
                 <h2 className="primary auth__title">
                     {currentForm === 'reg' ? 'Регистрация' : 'Авторизация'}
                 </h2>
-                <TextField label="Логин" name="login" field={login} />
+                <TextField
+                    label="Имя пользователя"
+                    name="login"
+                    field={login}
+                />
+                {/* {currentForm === 'reg' ? (
+                    <TextField
+                        label="E-mail"
+                        name="email"
+                        type="text"
+                        field={email}
+                    />
+                ) : null} */}
                 <TextField
                     label="Пароль"
                     name="password"

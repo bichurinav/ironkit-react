@@ -53,7 +53,11 @@ function DetailCard() {
         <div className="card-detail">
             <IconButton
                 onClick={() => {
-                    history.goBack();
+                    if (history.action === 'POP') {
+                        history.push(`/cards/${card.component}`);
+                    } else {
+                        history.goBack();
+                    }
                 }}
                 className="card-detail__back"
                 icon={back}
@@ -70,14 +74,14 @@ function DetailCard() {
                         />
                     </div>
                     <div className="card-detail__main">
-                        <div className="card-detail__count">
+                        {/* <div className="card-detail__count">
                             <span>
                                 На складе{' '}
                                 <b className="primary">{card.count} шт.</b>
                             </span>
-                        </div>
+                        </div> */}
                         <div className="card-detail__price">
-                            <span>Стоимость</span>
+                            <span>Примерная цена</span>
                             <b className="primary">{formatPrice(card.price)}</b>
                         </div>
                         {activeBuilderMore ? null : (

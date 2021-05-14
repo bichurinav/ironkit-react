@@ -10,7 +10,7 @@ function TextField({
 }) {
     return (
         <label className="text-field">
-            <span className="text-field__label">{label}</span>
+            {label ? <span className="text-field__label">{label}</span> : null}
             <input
                 className="input primary text-field__input"
                 name={name}

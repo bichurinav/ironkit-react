@@ -1,11 +1,10 @@
-import SQLite from '../../SQLite.js';
+import connectDB from './../../mysqlConnect.js';
 
 class MenuController {
     async getMenu(req, res) {
         try {
-            const db = new SQLite();
-            const menu = await db.all(`SELECT * FROM menu`);
-            await db.close();
+            const db = await connectDB();
+            const [menu] = await db.execute(`SELECT * FROM menu`);
             res.status(200).send(menu);
         } catch (e) {
             console.error(e);

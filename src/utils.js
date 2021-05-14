@@ -15,7 +15,7 @@ export const formatPrice = (price) => {
     }
     return getFormatRU(price);
     function getFormatRU(price) {
-        return price + ' ₽';
+        return '≈ ' + price + ' ₽';
     }
 };
 
@@ -45,6 +45,8 @@ export const removeAuth = async () => {
 };
 
 export const putComponentInBuilder = (card, menu) => {
+    if (card.count < 1)
+        return alert(`На складе больше не осталось ${card.name}`);
     const isChange = BuilderStore().set(card);
     if (!isChange) {
         const component = menu.filter(

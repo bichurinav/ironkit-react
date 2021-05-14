@@ -4,6 +4,7 @@ import menuRouter from './api/menu.js';
 import paramsRouter from './api/params.js';
 import componentRouter from './api/component.js';
 import usersRouter from './api/users.js';
+import builderRouter from './api/builder.js';
 import path from 'path';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/api/menu', menuRouter);
 app.use('/api/params', paramsRouter);
 app.use('/api/component', componentRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/builder', builderRouter);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(path.resolve(), 'build', 'index.html'));

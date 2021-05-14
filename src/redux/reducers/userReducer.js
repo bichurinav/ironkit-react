@@ -6,13 +6,14 @@ export const userSlice = createSlice({
         form: false,
         user: {
             login: '',
+            name: '',
+            contacts: '',
             admin: false,
         },
     },
     reducers: {
         setAuth: (state, action) => {
-            state.user.login = action.payload.login;
-            state.user.admin = action.payload.admin;
+            state.user = action.payload;
         },
         setForm: (state, action) => {
             state.form = action.payload;

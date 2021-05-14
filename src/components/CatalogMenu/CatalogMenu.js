@@ -40,6 +40,11 @@ export default function CatalogMenu({ className }) {
                         </NavLink>
                     </li>
                 ))}
+                {className === 'mobile' ? (
+                    <li className="catalog-menu__item">
+                        <NavLink to={'/kits'}>Сборки</NavLink>
+                    </li>
+                ) : null}
             </ul>
         </nav>
     );

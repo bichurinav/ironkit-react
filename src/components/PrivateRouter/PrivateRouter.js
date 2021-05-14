@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, admin, ...rest }) => {
+const PrivateRoute = ({ component: Component, access, ...rest }) => {
     return (
         <Route
             {...rest}
             render={(props) => {
-                return admin ? <Component {...props} /> : <Redirect to="/" />;
+                return access ? <Component {...props} /> : <Redirect to="/" />;
             }}
         />
     );
