@@ -53,6 +53,7 @@ class BuilderController {
                 res.status(200).json({
                     name: builders[0].name,
                     description: builders[0].description,
+                    price: builders[0].price,
                     builder: JSON.parse(builders[0].components),
                     success: true,
                 });

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import uniqid from 'uniqid';
 import caseIcon from './case.svg';
 import { setList } from './../../redux/reducers/builderReducer';
-import load from './../DetailCard/load.svg';
+import { formatPrice } from './../../utils';
+import load from './../../load.svg';
 import './Kits.scss';
 
 function Kits() {
@@ -60,6 +61,9 @@ function Kits() {
                                     </h3>
                                     <p className="kits__item-desc">
                                         {el.description}
+                                    </p>
+                                    <p className="kits__item-price">
+                                        {formatPrice(el.price)}
                                     </p>
                                 </div>
 

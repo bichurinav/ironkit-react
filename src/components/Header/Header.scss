@@ -44,7 +44,8 @@
             padding-bottom: 3px;
             color: $primary;
             text-decoration: none;
-
+            padding-bottom: 1px;
+            border-bottom: 1px solid $primary-light;
             &:hover {
                 color: $primary-light;
             }

@@ -5,7 +5,7 @@ import IconButton from './../../components/IconButton/IconButton';
 import { useSelector } from 'react-redux';
 import { putComponentInBuilder } from './../../utils';
 import uniqid from 'uniqid';
-import load from './load.svg';
+import load from './../../load.svg';
 import back from './back.svg';
 import './DetailCard.scss';
 

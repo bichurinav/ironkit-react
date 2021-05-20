@@ -12,6 +12,7 @@ import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCards } from './redux/reducers/builderReducer';
 import { setAuth } from './redux/reducers/userReducer';
+import { setMenu } from './redux/reducers/catalogReducer';
 import { checkAuth } from './utils';
 import PrivateRouter from './components/PrivateRouter/PrivateRouter';
 import Kits from './views/Kits/Kits';
@@ -25,8 +26,20 @@ export default function App() {
     const authRef = useRef();
     const menuRef = useRef();
     const dispatch = useDispatch();
+    const getMenu = () => {
+        return async (dispatch) => {
+            try {
+                const req = await fetch('/api/menu');
+                const res = await req.json();
+                dispatch(setMenu(res));
+            } catch (e) {
+                console.error(e);
+            }
+        };
+    };
     useEffect(() => {
         const cards = BuilderStore().get();
+        dispatch(getMenu());
         dispatch(setCards(cards));
         checkAuth().then((res) => {
             if (res) {
@@ -73,7 +86,6 @@ export default function App() {
                         access={user.admin}
                         path="/admin"
                     />
-
                     <Route exact path="/kits" children={<Kits />} />
                     <Route path="/kits/:user/:id" children={<DetailKit />} />
                     <Route path="/builder" children={<Builder />} />
