@@ -6,6 +6,19 @@
     position: relative;
     letter-spacing: 0.03em;
 
+    .animJump {
+        animation: animJump 0.5s;
+    }
+
+    @keyframes animJump {
+        0% {
+            top: -5px;
+        }
+        100% {
+            top: 5px;
+        }
+    }
+
     &__label {
         padding-right: 25px;
     }

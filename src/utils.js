@@ -52,6 +52,7 @@ export const putComponentInBuilder = (card, menu) => {
         const component = menu.filter(
             (el) => el.component === card.component
         )[0];
-        alert(`${component.name} уже лежит в сборщике!`);
+        return alert(`${component.name} уже лежит в сборщике!`);
     }
+    return true;
 };

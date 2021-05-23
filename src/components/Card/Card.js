@@ -3,7 +3,11 @@ import { formatPrice } from './../../utils';
 import BuilderStore from './../../BuilderStore';
 import IconButton from './../IconButton/IconButton';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { setActiveMore, setRAM } from './../../redux/reducers/builderReducer';
+import {
+    setActiveMore,
+    setRAM,
+    setStateAddition,
+} from './../../redux/reducers/builderReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { putComponentInBuilder } from './../../utils';
 import { useInput } from './../../hooks';
@@ -242,7 +246,13 @@ function Card({ card, builder = false, ram, kit }) {
                     <IconButton
                         className="card__btn-box"
                         onClick={() => {
-                            putComponentInBuilder(card, menu);
+                            const stateAddition = putComponentInBuilder(
+                                card,
+                                menu
+                            );
+                            if (stateAddition) {
+                                dispatch(setStateAddition(true));
+                            }
                         }}
                         icon={boxIcon}
                         size={40}

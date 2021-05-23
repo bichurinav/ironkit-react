@@ -154,6 +154,13 @@
         flex-shrink: 0;
     }
 
+    &__btn-box {
+        transition: $transiton;
+        &:hover {
+            transform: scale(0.9);
+        }
+    }
+
     &__count-ram {
         position: absolute;
         left: 10px;

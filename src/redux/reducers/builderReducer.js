@@ -13,6 +13,7 @@ export const builderSlice = createSlice({
         totalPrice: 0,
         list: [],
         activeMore: false,
+        actionAdition: false,
     },
     reducers: {
         setCount: (state, action) => {
@@ -33,11 +34,15 @@ export const builderSlice = createSlice({
         setList: (state, action) => {
             state.list = action.payload;
         },
+        setStateAddition: (state, action) => {
+            state.actionAdition = action.payload;
+        },
     },
 });
 
 export const {
     setCount,
+    setStateAddition,
     setCards,
     setActiveMore,
     setTotalPrice,
